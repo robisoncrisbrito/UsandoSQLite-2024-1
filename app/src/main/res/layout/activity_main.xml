@@ -17,7 +17,8 @@
         android:id="@+id/etCod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number" />
+        android:inputType="number"
+        android:hint="Digite o Código" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,7 +29,8 @@
         android:id="@+id/etNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:hint="Digite o Nome"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,8 +41,37 @@
         android:id="@+id/etTelefone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="phone"/>
+        android:inputType="phone"
+        android:hint="Digite o Telefone"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Incluir"
+        android:onClick="btIncluirOnClick" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alterar"
+        android:onClick="btAlterarOnClick" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Excluir"
+        android:onClick="btExcluirOnClick" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pesquisar"
+        android:onClick="btPesquisarOnClick" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Listar"
+        android:onClick="btListarOnClick" />
 
 </LinearLayout>
