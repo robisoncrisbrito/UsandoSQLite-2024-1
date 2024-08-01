@@ -25,9 +25,22 @@
         android:text="Nome:" />
 
     <EditText
-        android:id="@+id/et"
+        android:id="@+id/etNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number" />
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefone:" />
+
+    <EditText
+        android:id="@+id/etTelefone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"/>
+
+
 
 </LinearLayout>
