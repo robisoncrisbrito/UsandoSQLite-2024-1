@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         banco.insert( "cadastro", null, registro )
 
+
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
     }
     
@@ -57,8 +58,24 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
 
     }
-    fun btExcluirOnClick(view: View) {}
-    fun btPesquisarOnClick(view: View) {}
+    fun btExcluirOnClick(view: View) {
+        banco.delete( "cadastro","_id=" + etCod.text.toString(), null )
+
+        Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
+    }
+    fun btPesquisarOnClick(view: View) {
+        val registro = banco.query( "cadastro", null, "_id="+etCod.text.toString(), null, null, null, null )
+
+        var saida = StringBuilder();
+
+        if ( registro.moveToNext() ) {
+            etNome.setText( registro.getString( 1 ) )
+            etTelefone.setText( registro.getString( 2 ) )
+        } else {
+            Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
+        }
+
+    }
     fun btListarOnClick(view: View) {
         val registro = banco.query( "cadastro", null, null, null, null, null, null )
 
