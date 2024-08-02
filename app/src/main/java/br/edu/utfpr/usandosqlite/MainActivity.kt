@@ -47,7 +47,16 @@ class MainActivity : AppCompatActivity() {
     }
     
     
-    fun btAlterarOnClick(view: View) {}
+    fun btAlterarOnClick(view: View) {
+        val registro = ContentValues()
+        registro.put( "nome", etNome.text.toString() )
+        registro.put( "telefone", etTelefone.text.toString() )
+
+        banco.update( "cadastro", registro, "_id=" + etCod.text.toString(), null )
+
+        Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
+
+    }
     fun btExcluirOnClick(view: View) {}
     fun btPesquisarOnClick(view: View) {}
     fun btListarOnClick(view: View) {
