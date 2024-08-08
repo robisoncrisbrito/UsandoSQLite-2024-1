@@ -10,7 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper
 class DatabaseHandler (context : Context) : SQLiteOpenHelper ( context, DATABASE_NAME, null, DATABASE_VERSION ) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-
+        banco.execSQL( "CREATE TABLE IF NOT EXISTS cadastro ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                " nome TEXT, telefone TEXT )")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
