@@ -6,11 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         banco.execSQL( "CREATE TABLE IF NOT EXISTS cadastro ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 " nome TEXT, telefone TEXT )")
-
         
     }
 
@@ -43,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         banco.insert( "cadastro", null, registro )
 
-
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
     }
     
@@ -53,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         registro.put( "nome", etNome.text.toString() )
         registro.put( "telefone", etTelefone.text.toString() )
 
-        banco.update( "cadastro", registro, "_id=" + etCod.text.toString(), null )
+        banco.update( "cadastro", registro, "_id=${etCod.text.toString()}", null )
 
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
 
@@ -63,33 +57,55 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
     }
+
     fun btPesquisarOnClick(view: View) {
-        val registro = banco.query( "cadastro", null, "_id="+etCod.text.toString(), null, null, null, null )
+        val registro = banco.query( "cadastro",
+            null,
+            "_id="+etCod.text.toString(),
+            null,
+            null,
+            null,
+            null
+        )
 
         var saida = StringBuilder();
 
         if ( registro.moveToNext() ) {
-            etNome.setText( registro.getString( 1 ) )
-            etTelefone.setText( registro.getString( 2 ) )
+            etNome.setText( registro.getString(Companion.NOME) )
+            etTelefone.setText( registro.getString(Companion.TELEFONE) )
         } else {
             Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
         }
 
     }
+
     fun btListarOnClick(view: View) {
-        val registro = banco.query( "cadastro", null, null, null, null, null, null )
+        val registro = banco.query( "cadastro",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
 
         var saida = StringBuilder();
 
         while ( registro.moveToNext() ) {
-            saida.append( registro.getInt( 0 ) )
+            saida.append( registro.getInt(Companion.ID) )
             saida.append( " - " )
-            saida.append( registro.getString( 1 ) )
+            saida.append( registro.getString(Companion.NOME) )
             saida.append( " - " )
-            saida.append( registro.getString( 2 ) )
+            saida.append( registro.getString(Companion.TELEFONE) )
             saida.append( "\n" )
         }
 
         Toast.makeText( this, saida.toString(), Toast.LENGTH_LONG ).show()
+    }
+
+    companion object {
+        private const val ID = 0
+        private const val NOME = 1
+        private const val TELEFONE = 2
     }
 }
