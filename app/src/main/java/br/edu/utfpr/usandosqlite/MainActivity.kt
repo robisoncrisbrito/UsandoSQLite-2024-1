@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         if ( cadastro != null ) {
             etNome.setText( cadastro.nome)
-            etTelefone.setText( cadastro.telefone) )
+            etTelefone.setText( cadastro.telefone)
         } else {
             Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
         }
