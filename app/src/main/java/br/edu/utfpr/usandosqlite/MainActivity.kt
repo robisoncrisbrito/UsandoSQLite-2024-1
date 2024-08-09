@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import br.edu.utfpr.usandosqlite.database.DatabaseHandler
+import br.edu.utfpr.usandosqlite.entity.Cadastro
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etNome : EditText
     private lateinit var etTelefone : EditText
 
-    private lateinit var banco : SQLiteDatabase
+    private lateinit var banco : DatabaseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,55 +26,49 @@ class MainActivity : AppCompatActivity() {
         etNome = findViewById( R.id.etNome )
         etTelefone = findViewById( R.id.etTelefone )
 
-        banco = SQLiteDatabase.openOrCreateDatabase( this.getDatabasePath( "dbfile.sqlite" ), null )
+        banco = DatabaseHandler( this )
 
-        banco.execSQL( "CREATE TABLE IF NOT EXISTS cadastro ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                " nome TEXT, telefone TEXT )")
-        
     }
 
     fun btIncluirOnClick(view: View) {
-        val registro = ContentValues()
-        registro.put( "nome", etNome.text.toString() )
-        registro.put( "telefone", etTelefone.text.toString() )
 
-        banco.insert( "cadastro", null, registro )
+        val cadastro = Cadastro(
+            0,
+            etNome.text.toString(),
+            etTelefone.text.toString()
+        )
+
+        banco.insert( cadastro )
 
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
     }
     
     
     fun btAlterarOnClick(view: View) {
-        val registro = ContentValues()
-        registro.put( "nome", etNome.text.toString() )
-        registro.put( "telefone", etTelefone.text.toString() )
+        val cadastro = Cadastro(
+            etCod.text.toString().toInt(),
+            etNome.text.toString(),
+            etTelefone.text.toString()
+        )
 
-        banco.update( "cadastro", registro, "_id=${etCod.text.toString()}", null )
+        banco.update( cadastro )
 
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
 
     }
     fun btExcluirOnClick(view: View) {
-        banco.delete( "cadastro","_id=" + etCod.text.toString(), null )
+        banco.delete( etCod.text.toString().toInt() )
 
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
     }
 
     fun btPesquisarOnClick(view: View) {
-        val registro = banco.query( "cadastro",
-            null,
-            "_id="+etCod.text.toString(),
-            null,
-            null,
-            null,
-            null
-        )
 
-        var saida = StringBuilder();
+        val cadastro = banco.find( etCod.text.toString().toInt() )
 
-        if ( registro.moveToNext() ) {
-            etNome.setText( registro.getString(Companion.NOME) )
-            etTelefone.setText( registro.getString(Companion.TELEFONE) )
+        if ( cadastro != null ) {
+            etNome.setText( cadastro.nome)
+            etTelefone.setText( cadastro.telefone) )
         } else {
             Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
         }
@@ -80,23 +76,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btListarOnClick(view: View) {
-        val registro = banco.query( "cadastro",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
+        val registros = banco.list()
 
-        var saida = StringBuilder();
+        var saida = StringBuilder()
 
-        while ( registro.moveToNext() ) {
-            saida.append( registro.getInt(Companion.ID) )
+        registros.forEach {
+            saida.append( it._id )
             saida.append( " - " )
-            saida.append( registro.getString(Companion.NOME) )
+            saida.append( it.nome )
             saida.append( " - " )
-            saida.append( registro.getString(Companion.TELEFONE) )
+            saida.append( it.telefone )
             saida.append( "\n" )
         }
 
