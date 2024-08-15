@@ -3,6 +3,7 @@ package br.edu.utfpr.usandosqlite
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.SimpleCursorAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,10 +23,16 @@ class ListarActivity : AppCompatActivity() {
         lvRegistro = findViewById( R.id.lvRegistros )
         banco = DatabaseHandler( this )
 
+        val registros = banco.listCursor()
 
-        val registros = listOf<String> ( "Brasil", "Argentina", "Paraguai", "Uruguai" )
-
-        val adapter = ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, registros )
+        val adapter = SimpleCursorAdapter(
+            this,
+            android.R.layout.simple_list_item_2,
+            registros,
+            arrayOf( "nome", "telefone" ),
+            intArrayOf( android.R.id.text1, android.R.id.text2 ),
+            0
+        )
 
         lvRegistro.adapter = adapter
 
