@@ -2,6 +2,7 @@ package br.edu.utfpr.usandosqlite.database
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
@@ -24,7 +25,7 @@ class DatabaseHandler (context : Context) : SQLiteOpenHelper ( context, DATABASE
 
     companion object {
         private const val DATABASE_NAME = "dbfile.sqlite"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
         private const val TABLE_NAME = "cadastro"
         private const val ID = 0
         private const val NOME = 1
@@ -60,7 +61,7 @@ class DatabaseHandler (context : Context) : SQLiteOpenHelper ( context, DATABASE
     fun find(id : Int) : Cadastro? {
         val db = this.writableDatabase
 
-        val registro = db.query( TABLE_NAME,
+        val registro : Cursor = db.query( TABLE_NAME,
             null,
             "_id=${id}",
             null,
