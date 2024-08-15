@@ -110,4 +110,19 @@ class DatabaseHandler (context : Context) : SQLiteOpenHelper ( context, DATABASE
 
     }
 
+    fun listCursor() : Cursor {
+        val db = this.writableDatabase
+
+        val registro = db.query( TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        return registro
+    }
+
 }
