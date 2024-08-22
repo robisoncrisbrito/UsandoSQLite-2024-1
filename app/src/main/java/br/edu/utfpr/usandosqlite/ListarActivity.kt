@@ -31,4 +31,6 @@ class ListarActivity : AppCompatActivity() {
         lvRegistro.adapter = adapter
 
     }
+
+
 }

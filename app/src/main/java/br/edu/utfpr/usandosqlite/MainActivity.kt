@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         banco = DatabaseHandler( this )
 
+        println( "onCreate() executado" )
     }
 
     fun btIncluirOnClick(view: View) {
@@ -97,9 +98,35 @@ class MainActivity : AppCompatActivity() {
         startActivity( intent )
     }
 
-    companion object {
-        private const val ID = 0
-        private const val NOME = 1
-        private const val TELEFONE = 2
+
+    override fun onStart() {
+        super.onStart()
+        println( "onStart() executado" )
     }
+
+    override fun onResume() {
+        super.onResume()
+        println( "onResume() executado" )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println( "onPause() executado" )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println( "onStop() executado" )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println( "onDestroy() executado" )
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        println( "onRestart() executado" )
+    }
+
 }

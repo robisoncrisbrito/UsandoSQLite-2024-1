@@ -5,9 +5,6 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.widget.Toast
-import br.edu.utfpr.usandosqlite.MainActivity
-import br.edu.utfpr.usandosqlite.MainActivity.Companion
 import br.edu.utfpr.usandosqlite.entity.Cadastro
 
 
