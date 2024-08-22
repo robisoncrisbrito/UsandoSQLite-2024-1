@@ -1,12 +1,15 @@
 package br.edu.utfpr.usandosqlite.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageButton
 import android.widget.TextView
+import br.edu.utfpr.usandosqlite.MainActivity
 import br.edu.utfpr.usandosqlite.R
 import br.edu.utfpr.usandosqlite.database.DatabaseHandler.Companion.ID
 import br.edu.utfpr.usandosqlite.database.DatabaseHandler.Companion.NOME
@@ -41,11 +44,24 @@ class ElementoListaAdapter (val context : Context, val cursor : Cursor) : BaseAd
 
         val tvNomeElementoLista = v.findViewById<TextView>( R.id.tvNomeElementoLista )
         val tvTelefoneElementoLista = v.findViewById<TextView>( R.id.tvTelefoneElementoLista )
+        val btEditarElementoLista = v.findViewById<ImageButton>( R.id.btEditarElementoLista )
 
         cursor.moveToPosition( position )
 
         tvNomeElementoLista.setText( cursor.getString( NOME ) )
         tvTelefoneElementoLista.setText( cursor.getString( TELEFONE ) )
+
+        btEditarElementoLista.setOnClickListener{
+            val intent = Intent( context, MainActivity::class.java )
+
+            cursor.moveToPosition( position )
+
+            intent.putExtra( "cod", cursor.getInt( ID ) )
+            intent.putExtra( "nome", cursor.getInt( NOME ) )
+            intent.putExtra( "telefone", cursor.getInt( TELEFONE ) )
+
+            context.startActivity( intent )
+        }
 
         return v
     }

@@ -27,7 +27,15 @@ class MainActivity : AppCompatActivity() {
         etNome = findViewById( R.id.etNome )
         etTelefone = findViewById( R.id.etTelefone )
 
+        etCod.isEnabled = false
+
         banco = DatabaseHandler( this )
+
+        if ( intent.getIntExtra( "cod", 0 ) != 0 ) {
+            etCod.setText( intent.getIntExtra( "cod", 0 ).toString() )
+            etNome.setText( intent.getStringExtra( "nome" ) )
+            etTelefone.setText( intent.getStringExtra( "telefone" ) )
+        }
 
         println( "onCreate() executado" )
     }
