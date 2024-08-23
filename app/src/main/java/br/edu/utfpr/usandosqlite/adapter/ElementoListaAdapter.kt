@@ -57,8 +57,8 @@ class ElementoListaAdapter (val context : Context, val cursor : Cursor) : BaseAd
             cursor.moveToPosition( position )
 
             intent.putExtra( "cod", cursor.getInt( ID ) )
-            intent.putExtra( "nome", cursor.getInt( NOME ) )
-            intent.putExtra( "telefone", cursor.getInt( TELEFONE ) )
+            intent.putExtra( "nome", cursor.getString( NOME ) )
+            intent.putExtra( "telefone", cursor.getString( TELEFONE ) )
 
             context.startActivity( intent )
         }
