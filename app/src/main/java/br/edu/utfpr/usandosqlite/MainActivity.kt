@@ -1,6 +1,7 @@
 package br.edu.utfpr.usandosqlite
 
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -83,24 +84,28 @@ class MainActivity : AppCompatActivity() {
     fun btPesquisarOnClick(view: View) {
 
 
+        val etCodPesquisa = EditText( this )
+
         val builder = AlertDialog.Builder( this )
         builder.setTitle( "Cod. do Cadastro" )
-        builder.setMessage( "Msg do Alert" )
+        builder.setView( etCodPesquisa )
         builder.setCancelable( false )
         builder.setNegativeButton( "Fechar", null )
-        builder.setPositiveButton( "Pesquisar", null )
+        builder.setPositiveButton( "Pesquisar", DialogInterface.OnClickListener{ dialogInterface, i ->
+            val cadastro = banco.find( etCodPesquisa.text.toString().toInt() )
+
+            if ( cadastro != null ) {
+                etNome.setText( cadastro.nome)
+                etTelefone.setText( cadastro.telefone)
+            } else {
+                Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
+            }
+        } )
         builder.show()
 
 
         /*
-        val cadastro = banco.find( etCod.text.toString().toInt() )
 
-        if ( cadastro != null ) {
-            etNome.setText( cadastro.nome)
-            etTelefone.setText( cadastro.telefone)
-        } else {
-            Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
-        }
 */
     }
 
