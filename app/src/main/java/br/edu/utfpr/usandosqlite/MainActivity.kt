@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
 
     fun btPesquisarOnClick(view: View) {
 
-
         val etCodPesquisa = EditText( this )
 
         val builder = AlertDialog.Builder( this )
@@ -91,16 +90,19 @@ class MainActivity : AppCompatActivity() {
         builder.setView( etCodPesquisa )
         builder.setCancelable( false )
         builder.setNegativeButton( "Fechar", null )
-        builder.setPositiveButton( "Pesquisar", DialogInterface.OnClickListener{ dialogInterface, i ->
-            val cadastro = banco.find( etCodPesquisa.text.toString().toInt() )
+        builder.setPositiveButton( "Pesquisar",
+            DialogInterface.OnClickListener { dialogInterface, i ->
+                val cadastro = banco.find(etCodPesquisa.text.toString().toInt())
 
-            if ( cadastro != null ) {
-                etNome.setText( cadastro.nome)
-                etTelefone.setText( cadastro.telefone)
-            } else {
-                Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
+                if (cadastro != null) {
+                    etCod.setText( etCodPesquisa.text.toString() )
+                    etNome.setText(cadastro.nome)
+                    etTelefone.setText(cadastro.telefone)
+                } else {
+                    Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
+                }
             }
-        } )
+        )
         builder.show()
 
 
