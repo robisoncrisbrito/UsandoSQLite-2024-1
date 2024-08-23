@@ -5,8 +5,10 @@ import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.utfpr.usandosqlite.database.DatabaseHandler
 import br.edu.utfpr.usandosqlite.entity.Cadastro
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etCod : EditText
     private lateinit var etNome : EditText
     private lateinit var etTelefone : EditText
+    private lateinit var btExcluir : Button
+    private lateinit var btPesquisar : Button
 
     private lateinit var banco : DatabaseHandler
 
@@ -26,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         etCod = findViewById( R.id.etCod )
         etNome = findViewById( R.id.etNome )
         etTelefone = findViewById( R.id.etTelefone )
+        btExcluir = findViewById( R.id.btExcluir )
+        btPesquisar = findViewById( R.id.btPesquisar )
 
         etCod.isEnabled = false
 
@@ -35,6 +41,9 @@ class MainActivity : AppCompatActivity() {
             etCod.setText( intent.getIntExtra( "cod", 0 ).toString() )
             etNome.setText( intent.getStringExtra( "nome" ) )
             etTelefone.setText( intent.getStringExtra( "telefone" ) )
+        } else {
+            btExcluir.visibility = View.GONE
+            btPesquisar.visibility = View.GONE
         }
 
         println( "onCreate() executado" )
@@ -61,15 +70,29 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
 
+        finish()
     }
     fun btExcluirOnClick(view: View) {
         banco.delete( etCod.text.toString().toInt() )
 
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
+
+        finish()
     }
 
     fun btPesquisarOnClick(view: View) {
 
+
+        val builder = AlertDialog.Builder( this )
+        builder.setTitle( "Cod. do Cadastro" )
+        builder.setMessage( "Msg do Alert" )
+        builder.setCancelable( false )
+        builder.setNegativeButton( "Fechar", null )
+        builder.setPositiveButton( "Pesquisar", null )
+        builder.show()
+
+
+        /*
         val cadastro = banco.find( etCod.text.toString().toInt() )
 
         if ( cadastro != null ) {
@@ -78,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
         }
-
+*/
     }
 
 
