@@ -40,28 +40,24 @@ class MainActivity : AppCompatActivity() {
         println( "onCreate() executado" )
     }
 
-    fun btIncluirOnClick(view: View) {
-
-        val cadastro = Cadastro(
-            0,
-            etNome.text.toString(),
-            etTelefone.text.toString()
-        )
-
-        banco.insert( cadastro )
-
-        Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
-    }
-    
     
     fun btAlterarOnClick(view: View) {
-        val cadastro = Cadastro(
-            etCod.text.toString().toInt(),
-            etNome.text.toString(),
-            etTelefone.text.toString()
-        )
 
-        banco.update( cadastro )
+        if ( etCod.text.toString().isEmpty() ) {
+            val cadastro = Cadastro(
+                0,
+                etNome.text.toString(),
+                etTelefone.text.toString()
+            )
+            banco.insert( cadastro )
+        } else {
+            val cadastro = Cadastro(
+                etCod.text.toString().toInt(),
+                etNome.text.toString(),
+                etTelefone.text.toString()
+            )
+            banco.update( cadastro )
+        }
 
         Toast.makeText( this, "Sucesso!", Toast.LENGTH_LONG ).show()
 
@@ -83,27 +79,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Registro não encontrado", Toast.LENGTH_LONG).show()
         }
 
-    }
-
-    fun btListarOnClick(view: View) {
-        /*val registros : MutableList<Cadastro> = banco.list()
-
-        var saida = StringBuilder()
-
-        registros.forEach {
-            saida.append( it._id )
-            saida.append( " - " )
-            saida.append( it.nome )
-            saida.append( " - " )
-            saida.append( it.telefone )
-            saida.append( "\n" )
-        }
-
-        Toast.makeText( this, saida.toString(), Toast.LENGTH_LONG ).show()
-   */
-
-        val intent = Intent( this, ListarActivity::class.java )
-        startActivity( intent )
     }
 
 

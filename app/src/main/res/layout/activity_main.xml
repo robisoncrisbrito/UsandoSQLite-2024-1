@@ -48,14 +48,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Incluir"
-        android:onClick="btIncluirOnClick" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Alterar"
-        android:onClick="btAlterarOnClick" />
+        android:onClick="btAlterarOnClick"
+        android:text="Salvar" />
 
     <Button
         android:layout_width="wrap_content"
@@ -68,11 +62,5 @@
         android:layout_height="wrap_content"
         android:text="Pesquisar"
         android:onClick="btPesquisarOnClick" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Listar"
-        android:onClick="btListarOnClick" />
 
 </LinearLayout>
